@@ -1,6 +1,6 @@
-package entity;
+package com.concordia.entity;
 
-import utils.DateUtils;
+import com.concordia.utils.DateUtils;
 
 import java.text.ParseException;
 import java.util.Date;

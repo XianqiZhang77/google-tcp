@@ -1,4 +1,4 @@
-package entity;
+package com.concordia.entity;
 
 import java.util.Date;
 

@@ -1,7 +1,7 @@
-package google_tcp;
+package com.concordia.google_tcp;
 
-import entity.TestSuite;
-import entity.TestSuiteHistory;
+import com.concordia.entity.TestSuite;
+import com.concordia.entity.TestSuiteHistory;
 
 import java.io.*;
 import java.text.ParseException;
