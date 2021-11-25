@@ -26,7 +26,7 @@ public class GoogleTCP {
         BufferedWriter bw;
         try {
             br = new BufferedReader(new FileReader(filename));
-            bw = new BufferedWriter(new FileWriter("results.out"));
+            bw = new BufferedWriter(new FileWriter("GoogleTCP.out"));
 
             List<TestSuite> testSuites = new ArrayList<>();
 
