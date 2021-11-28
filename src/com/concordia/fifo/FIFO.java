@@ -17,12 +17,7 @@ public class FIFO {
 
     private static Date currentTimeStamp;
 
-    public static void main(String[] args) {
-        String directory = "/Users/xianqizhang/Downloads/CI-Datasets-master/GooglePostCleanData.out";
-        run(directory);
-    }
-
-    private static void run(String directory) {
+    public static void run(String directory) {
         BufferedReader br;
         BufferedWriter bw;
         List<TestSuite> testSuites = new ArrayList<>();

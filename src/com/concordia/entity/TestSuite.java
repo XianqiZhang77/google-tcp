@@ -153,6 +153,6 @@ public class TestSuite {
 
     @Override
     public String toString() {
-        return directory + "," +requestNumber + "," + stage + "," + status + "," + DateUtils.dateFormatter(launchTime) + "," + executionTime + "," + size + "," + shard_number + "," + run_number + "," + language;
+        return directory + "," +requestNumber + "," + stage + "," + status + "," + DateUtils.dateFormatter(launchTime) + "," + executionTime + "," + size + "," + shard_number + "," + run_number + "," + language + getPriority();
     }
 }
