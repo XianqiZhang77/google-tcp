@@ -19,10 +19,10 @@ public class DateUtils {
         return formatter.parse(s);
     }
 
-    public static boolean checkTimeDiff(Date launchTime, Date prevTime, int W) {
+    public static boolean checkTimeDiff(Date launchTime, Date prevTime, double W) {
         Calendar prevCalendar = Calendar.getInstance();
         prevCalendar.setTime(prevTime);
-        prevCalendar.add(Calendar.HOUR, W);
+        prevCalendar.add(Calendar.HOUR, (int) W);
         Date nowTime = prevCalendar.getTime();
         return nowTime.before(launchTime);
     }
@@ -37,9 +37,4 @@ public class DateUtils {
 
         return calendar.getTime();
     }
-
-    public static void main(String[] args) throws ParseException {
-        System.out.println((dateFormatter("2014-02-18 12:27:46.117").getTime() - dateFormatter("2014-01-01 00:00:02.000").getTime()) / 1461303);
-    }
-
 }

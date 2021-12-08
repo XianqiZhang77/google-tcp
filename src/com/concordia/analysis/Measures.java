@@ -1,7 +1,10 @@
 package com.concordia.analysis;
 
 import com.concordia.entity.TestSuite;
+import com.concordia.google_tcp.TCP;
 import com.concordia.utils.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,21 +27,13 @@ public class Measures {
 
     private static Map<Integer, Date> requestTimeStamps = new HashMap<>();
 
-    private static Date dateCriterion;
+    static Logger logger = LoggerFactory.getLogger(Measures.class);
 
     private static int size = 0;
 
-    static {
-        try {
-            dateCriterion = DateUtils.dateFormatter("2014-01-01 00:00:02.000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void analyze(String filename) {
         try {
-
+            logger.info("analyzing...");
             BufferedReader br1 = new BufferedReader(new FileReader("FIFO.out"));
             BufferedReader br2 = new BufferedReader(new FileReader("TCP.out"));
             BufferedReader br3 = new BufferedReader(new FileReader(filename));
@@ -62,13 +57,13 @@ public class Measures {
         double median2 = calculateMedianWaitingTime(fifo_all_fail);
 
         double firstFail = calculateSpeedup(google_tcp_first_fail, fifo_first_fail);
-        System.out.println("FirstFail: " + firstFail / median1 * 100 + "%");
+        logger.info("FirstFail: " + firstFail / median1 * 100 + "%");
 
         double all_fail = calculateSpeedup(google_tcp_all_fail, fifo_all_fail);
-        System.out.println("AllFail: " + all_fail / median2 * 100 + "%");
+        logger.info("AllFail: " + all_fail / median2 * 100 + "%");
 
         double delayed_rate = calculateDelayRate(fifo_failures, tcp_failures);
-        System.out.println("Percentage of Delayed Test Failures: " + delayed_rate * 100 + "%");
+        logger.info("Percentage of Delayed Test Failures: " + delayed_rate * 100 + "%");
 
     }
 
@@ -86,7 +81,6 @@ public class Measures {
         for (Map.Entry<Integer, Date> entry : failures.entrySet()) {
             Integer requestNumber = entry.getKey();
             long diff = entry.getValue().getTime() - requestTimeStamps.get(requestNumber).getTime();
-//            long diff = entry.getValue().getTime() - (dateCriterion.getTime() + entry.getKey() * 2222);
             time = time + diff;
         }
         return (double) time / requestTimeStamps.size();

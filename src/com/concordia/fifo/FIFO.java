@@ -26,7 +26,7 @@ public class FIFO {
             bw = new BufferedWriter(new FileWriter("FIFO.out"));
             while (!global_flag) {
                 testSuites.clear();
-                testSuites = readTestSuites(directory, br);
+                testSuites = readTestSuites(br);
 
                 if (testSuites.size() > 0) {
                     if (currentTimeStamp == null) {
@@ -60,10 +60,13 @@ public class FIFO {
         return calendar.getTime();
     }
 
-    private static List<TestSuite> readTestSuites(String directory, BufferedReader br) throws IOException, ParseException {
+    private static List<TestSuite> readTestSuites(BufferedReader br) throws IOException, ParseException {
         int prevRequestNum = -1;
         List<TestSuite> res = new ArrayList<>();
         if (prevTestSuite != null) {
+            if (prevTestSuite.getLaunchTime().after(currentTimeStamp)) {
+                currentTimeStamp = prevTestSuite.getLaunchTime();
+            }
             res.add(prevTestSuite);
             prevRequestNum = prevTestSuite.getRequestNumber();
         }

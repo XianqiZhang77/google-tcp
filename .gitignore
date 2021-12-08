@@ -27,3 +27,4 @@ hs_err_pid*
 /GoogleTCP.out
 /TCP.out
 /resources/GooglePostCleanData.out
+/GooglePostDataLast30%.out

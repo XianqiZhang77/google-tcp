@@ -26,7 +26,7 @@ public class TCP {
 
     private static double window = 0;
 
-    public static void run(File file, double Wp, int Wf, int We) {
+    public static void run(File file, double Wp, double Wf, double We) {
         BufferedReader br;
         BufferedWriter bw;
         try {
@@ -39,8 +39,10 @@ public class TCP {
             }
             currentTimeStamp = dispatchQueue.peek().getLaunchTime();
 
+            logger.info("Prioritizing...");
+
             while (!dispatchQueue.isEmpty()) {
-                logger.info(dispatchQueue.size()+"");
+//                logger.info(dispatchQueue.size()+"");
                 if (window < windowP || global_flag) {
                     TestSuite cur = dispatchQueue.poll();
                     assert cur != null;
@@ -69,7 +71,7 @@ public class TCP {
         }
     }
 
-    private static void prioritizePOSTTests(List<TestSuite> testSuites, int Wf, int We) {
+    private static void prioritizePOSTTests(List<TestSuite> testSuites, double Wf, double We) {
 
         for (TestSuite testSuite : testSuites) {
             if (!history.containsKey(testSuite.getDirectory())) {
@@ -108,7 +110,11 @@ public class TCP {
     private static List<TestSuite> readTestSuites(BufferedReader br) throws IOException, ParseException {
         List<TestSuite> testSuites = new ArrayList<>();
         if (prevTestSuite.getLaunchTime().after(currentTimeStamp)) {
-            return testSuites;
+            if (dispatchQueue.isEmpty()) {
+                currentTimeStamp = prevTestSuite.getLaunchTime();
+            } else {
+                return testSuites;
+            }
         }
 
         testSuites.add(prevTestSuite);
