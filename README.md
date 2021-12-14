@@ -8,14 +8,16 @@ You can run this application by command line:
 
  mvn exec:java -Dexec.mainClass="Application" -Dexec.args="GooglePostCleanData.out"
  
-You should pass the first argument with the directory of your data file
+You should pass the first argument with the directory of your data file.
 
-The default Wp = 24, Wf = 24, We = 48
+The default Wp = 2, Wf = 12, We = 24
+
+Wp should be less than 3h due to the limitation size of dispatch queue.
 
 If you want to customize the values of Wp, Wf, We
 
 Please run this application by command line:
 
- mvn exec:java -Dexec.mainClass="Application" -Dexec.args="GooglePostCleanData.out 24 24 48"
+ mvn exec:java -Dexec.mainClass="Application" -Dexec.args="GooglePostCleanData.out 2 12 24"
  
  each of the value passed represents Wp, Wf, We respectively.

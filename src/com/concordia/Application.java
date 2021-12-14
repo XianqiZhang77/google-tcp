@@ -19,9 +19,9 @@ public class Application {
             System.exit(-1);
         }
 
-        String Wp = "24";
-        String Wf = "24";
-        String We = "48";
+        String Wp = "2";
+        String Wf = "12";
+        String We = "24";
 
         String filename = args[0];
 
@@ -29,6 +29,11 @@ public class Application {
             logger.info("The default value of Wp is " + Wp);
             logger.info("The default value of Wf is " + Wf);
             logger.info("The default value of We is " + We);
+        }
+
+        if (Double.parseDouble(args[1]) >= 3) {
+            logger.error("Wp should be less than 3h due to the limitation size of dispatch Queue");
+            System.exit(-1);
         }
 
         if (args.length == 2) {

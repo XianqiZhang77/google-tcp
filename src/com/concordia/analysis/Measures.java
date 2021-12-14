@@ -94,7 +94,7 @@ public class Measures {
             long diff = fifo.get(key).getTime() - google_tcp.get(key).getTime();
             time = time + diff;
         }
-        return (double) time / requestTimeStamps.size();
+        return (double) time / google_tcp_first_fail.size();
     }
 
 
